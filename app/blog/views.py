@@ -1,17 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Blog
+from .models import Post
 
 def home(request):
     # 페이지 제목과 블로그 입장하기 버튼을 렌더링
     return render(request, 'home.html')
 
 def blog_list(request):
-    blogs = Blog.objects.all()
+    posts = Post.objects.all()
     # 게시글 목록을 렌더링
-    return render(request, 'blog_list.html', {'blogs': blogs})
+    return render(request, 'blog_list.html', {'posts': posts})
 
 def blog_detail(request, pk):
-    blog = Blog.objects.get(pk=pk)
+    post = Post.objects.get(pk=pk)
     # 게시글 상세 페이지를 렌더링
-    return render(request, 'blog_detail.html', {'blog': blog})
+    return render(request, 'blog_detail.html', {'post': post})
