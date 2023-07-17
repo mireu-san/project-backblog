@@ -9,3 +9,10 @@
 
 # 주제.
 건전하고 가볍게 읽을 수 있는 소설 리뷰 블로그.
+
+
+# Folder structure
+- backblog : virtual environment files
+- projectblog : django project itself.
+  - \app: config files of django project.
+  - \blog: 주요 메인 파일. models, views, admin 포함.
