@@ -18,7 +18,7 @@ from django.urls import reverse
     - 게시글의 제목/내용을 보는 기능입니다.
 """
 
-class Blog(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
 
@@ -27,5 +27,3 @@ class Blog(models.Model):
     
     def get_absolute_url(self):
         return reverse("blog_detail", args=[str(self.id)])
-    
-    
