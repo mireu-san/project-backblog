@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Blog List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <h1>Blog List</h1>
     <ul>
+        {% spaceless %}
         {% for blog in blogs %}
         <li><a href="{% url 'blog_detail' blog.id %}">{{ blog.title }}</a></li>
         {% endfor %}
+        {% endspaceless %}
     </ul>
 </body>
 </html>
