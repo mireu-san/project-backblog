@@ -18,9 +18,6 @@ urlpatterns = [
     # welcome.html 에 위치한 블로그 입장하기 버튼을 눌렀을 때, home.html에 표시 될 blog_list.html 을 렌더링
     path('list/', views.blog_list, name='blog_list'),
 
-    # blog 의 각 post 별, 고유 id 값을 가지고 있는 url 을 생성
+    # blog 의 각 post 별, 고유 id 값을 가지고 있는 url 을 생성 및 내용 표시
     path('blog/<int:pk>/', views.blog_detail, name='blog_detail'),
 ]
-
-    
-    # path('blog/', views.blog_page, name='blog_page'),
