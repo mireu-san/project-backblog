@@ -9,10 +9,15 @@ app_name = "blog"
 """
 
 urlpatterns = [
+    # 최초의 화면을 welcome.html 로 설정
     path('welcome/', views.welcome, name='welcome'),
+    
+    # blog 화면에 진입 시 모습. home.html 을 렌더링
     path('', views.home, name='home'),
-    path('list/', views.blog_list, name='blog_list'),
-    # path('blog/', views.blog_page, name='blog_page'),
+    
+    # blog 의 각 post 별, 고유 id 값을 가지고 있는 url 을 생성
     path('<int:pk>/', views.blog_detail, name='blog_detail'),
 ]
 
+    # path('list/', views.blog_list, name='blog_list'),
+    # path('blog/', views.blog_page, name='blog_page'),
