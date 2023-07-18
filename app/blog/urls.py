@@ -9,8 +9,10 @@ app_name = "blog"
 """
 
 urlpatterns = [
+    path('welcome/', views.welcome, name='welcome'),
     path('', views.home, name='home'),
     path('list/', views.blog_list, name='blog_list'),
-    path('blog/', views.blog_page, name='blog_page'),
+    # path('blog/', views.blog_page, name='blog_page'),
     path('<int:pk>/', views.blog_detail, name='blog_detail'),
 ]
+
