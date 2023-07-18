@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeView, BlogListView, BlogDetailView, WelcomeView
+from .views import HomeView, BlogListView, BlogDetailView, WelcomeView, PostCreateView
 
 app_name = "blog"
 
@@ -20,4 +20,8 @@ urlpatterns = [
 
     # blog 의 각 post 별, 고유 id 값을 가지고 있는 url 을 생성 및 내용 표시
     path('blog/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
+
+    # blog 에서, user 가 post 를 작성
+    path('write/', PostCreateView.as_view(), name='post_create'),
 ]
+

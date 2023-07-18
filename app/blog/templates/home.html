@@ -6,9 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <body>
-        <h2>Latest Blog Posts:</h2>
-        {% include 'blog_list.html' %}
-    </body>    
+    <h2>Latest Blog Posts:</h2>
+    {% include 'blog_list.html' %}
+    <a href="{% url 'blog:post_create' %}">Write a Post</a>   
 </body>
 </html>
+
+
+{% comment %} 
+최초의 페이지 이 후, 링크 타고 오게 될 본 페이지.
+최근 블로그 글을 표시.
+현재 admin page 에서 작성 된 글만 표시되고 있음.
+{% endcomment %}

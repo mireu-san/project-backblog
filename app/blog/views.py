@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from django.views import View
 from .models import Post
 
@@ -27,3 +27,14 @@ class BlogDetailView(DetailView):
     model = Post
     template_name = 'blog_detail.html'
     context_object_name = 'post'
+
+
+class PostCreateView(CreateView):
+    model = Post
+    fields = ['title', 'content']  
+    template_name = 'post_write.html'
+    success_url = '/blog/' 
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
