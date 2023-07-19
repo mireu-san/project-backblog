@@ -8,22 +8,24 @@
 <body>
     <h2>Latest Blog Posts:</h2>
     {% include 'blog_list.html' %}
-    <a href="{% url 'blog:post_create' %}">Write a Post</a>  
     
     <form action="{% url 'blog:post_search' %}" method="GET">
         <input type="text" name="query" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
-        
-    {% if user.is_authenticated %}
-    <a href="{% url 'blog:logout' %}">Logout</a>
-    {% else %}
-    <a href="{% url 'blog:login' %}">Login</a>
-    <a href="{% url 'blog:signup' %}">Sign up</a>
-    {% endif %}
     
+    {% comment %} 인증, 로그인, 회원 등록 및 확인 유무 {% endcomment %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'blog:post_create' %}">Write a Post</a>
+        <a href="{% url 'blog:logout' %}">Logout</a>
+    {% else %}
+        <p>To write a post, please sign in.</p>
+        <a href="{% url 'blog:login' %}">Login</a>
+        <a href="{% url 'blog:signup' %}">Sign up</a>
+    {% endif %}
 </body>
 </html>
+
 
 
 {% comment %} 
