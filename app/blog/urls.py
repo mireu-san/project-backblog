@@ -18,8 +18,8 @@ app_name = "blog"
 
 """
 / 또는 /blog/ 로 접속했을 때, views.py 에서 home 함수를 실행하도록 설정
-
 """
+
 
 urlpatterns = [
     # 최초의 화면을 welcome.html 로 설정

@@ -22,6 +22,7 @@ from django.contrib.auth.models import User
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(max_length=2000)
+    is_deleted = models.BooleanField(default=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     publication_date = models.DateField(auto_now_add=True)
     picture = models.ImageField(upload_to='post_pictures', blank=True, null=True)

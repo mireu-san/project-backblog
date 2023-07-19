@@ -142,7 +142,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-
 class DeletedPostView(View):
-    def get(self):
+    def get(self, request):
         return HttpResponseNotFound("존재하지 않는 게시글입니다.")
