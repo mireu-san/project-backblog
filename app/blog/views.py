@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic.edit import UpdateView
 from django.views import View
 from .models import Post
 
@@ -34,6 +35,16 @@ class PostCreateView(CreateView):
     fields = ['title', 'content']  
     template_name = 'post_write.html'
     success_url = '/blog/' 
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class PostEditView(UpdateView):
+    model = Post
+    fields = ['title', 'content']
+    template_name = 'post_edit.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

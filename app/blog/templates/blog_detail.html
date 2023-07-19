@@ -8,6 +8,7 @@
 <body>
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
+    <a href="{% url 'blog:post_edit' pk=post.pk %}">Edit</a>
 </body>
 </html>
 

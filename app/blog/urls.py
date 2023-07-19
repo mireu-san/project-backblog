@@ -1,5 +1,12 @@
 from django.urls import path
-from .views import HomeView, BlogListView, BlogDetailView, WelcomeView, PostCreateView
+from .views import (
+    HomeView, 
+    BlogListView,
+    BlogDetailView, 
+    WelcomeView, 
+    PostCreateView,
+    PostEditView
+)
 
 app_name = "blog"
 
@@ -22,6 +29,9 @@ urlpatterns = [
     path('blog/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
 
     # blog 에서, user 가 post 를 작성
-    path('write/', PostCreateView.as_view(), name='post_create'),
+    path('blog/write/', PostCreateView.as_view(), name='post_create'),
+
+    # 수정.
+    path('blog/edit/<int:pk>/', PostEditView.as_view(), name='post_edit'),
 ]
 
