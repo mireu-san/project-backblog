@@ -1,7 +1,10 @@
 <body>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
 </body>
+
+
+{% comment %} The enctype="multipart/form-data" attribute is included in the <form> tag to handle file uploads correctly. {% endcomment %}

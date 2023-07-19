@@ -10,7 +10,7 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LogoutView as AuthLogoutView
 from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-
+from .forms import PostForm
 
 class WelcomeView(View):
     template_name = 'welcome.html'
@@ -127,3 +127,7 @@ class LoginView(View):
 class LogoutView(AuthLogoutView):
     next_page = 'blog:welcome'
 
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_write.html'

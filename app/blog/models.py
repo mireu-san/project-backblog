@@ -24,7 +24,8 @@ class Post(models.Model):
     content = models.TextField(max_length=2000)
     author = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     publication_date = models.DateField(auto_now_add=True)
-
+    picture = models.ImageField(upload_to='post_pictures', blank=True, null=True)
+    
     def __str__(self):
         return self.title
     

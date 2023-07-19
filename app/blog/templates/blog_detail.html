@@ -8,12 +8,19 @@
 <body>
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
+
+    <!-- Display the uploaded image if it exists -->
+    {% if post.picture %}
+        <img src="{{ post.picture.url }}" alt="Post image">
+    {% endif %}
+
+
     
-    <!-- Debugging Info Start -->
+    {% comment %} <!-- Debugging Info Start -->
     <p>Is user authenticated: {{ user.is_authenticated }}</p>
     <p>Current User: {{ user.username }}</p>
     <p>Post Author: {{ post.author.username }}</p>
-    <!-- Debugging Info End -->
+    <!-- Debugging Info End --> {% endcomment %}
 
     {% if user.is_authenticated and user == post.author %}
         <a href="{% url 'blog:post_edit' pk=post.pk %}">Edit</a>
