@@ -7,11 +7,15 @@
 </head>
 <body>
     {% for post in posts %}
-        <h3>
-            <a href="{% url 'blog:blog_detail' post.pk %}">
-                {{ post.title }}
-            </a>
-        </h3>
+        <div>
+            <h3>
+                <a href="{% url 'blog:blog_detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </h3>
+            
+            <p>View Count: {{ post.view_count }}</p>
+        </div>
     {% endfor %}
 </body>
 </html>

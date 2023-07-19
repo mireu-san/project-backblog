@@ -11,6 +11,7 @@ from .views import (
     LoginView,
     LogoutView,
     SignupView,
+    DeletedPostView,
 )
 
 app_name = "blog"
@@ -31,6 +32,7 @@ urlpatterns = [
     path('list/', BlogListView.as_view(), name='blog_list'),
 
     # blog 의 각 post 별, 고유 id 값을 가지고 있는 url 을 생성 및 내용 표시
+    # 조회수 기능
     path('blog/<int:pk>/', BlogDetailView.as_view(), name='blog_detail'),
 
     # blog 에서, user 가 post 를 작성
@@ -50,5 +52,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', SignupView.as_view(), name='signup'),
+
+    # 삭제 된 게시글 진입 시 커스텀 경고문
+    path('blog/deleted/', DeletedPostView.as_view(), name='deleted_post'),
 ]
 

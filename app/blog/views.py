@@ -1,19 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views import View
-from django.http import HttpResponseServerError
+from django.http import HttpResponseServerError, HttpResponseNotFound
 from .models import Post
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LogoutView as AuthLogoutView
-from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import PostForm
 
+
 class WelcomeView(View):
-    template_name = 'welcome.html'
+    template_name = 'blog/welcome.html'
 
     def get(self, request):
         return render(request, self.template_name)
@@ -21,26 +21,27 @@ class WelcomeView(View):
 
 class HomeView(ListView):
     model = Post
-    template_name = 'home.html'
+    template_name = 'blog/home.html'
     context_object_name = 'posts'
 
 
 class BlogListView(ListView):
     model = Post
-    template_name = 'blog_list.html'
+    template_name = 'blog/blog_list.html'
     context_object_name = 'posts'
 
 
 class BlogDetailView(DetailView):
     model = Post
-    template_name = 'blog_detail.html'
+    template_name = 'blog/blog_detail.html'
     context_object_name = 'post'
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
+    form_class = PostForm
     fields = ['title', 'content']  
-    template_name = 'post_write.html'
+    template_name = 'blog/post_write.html'
     success_url = '/blog/' 
 
     def form_valid(self, form):
@@ -51,7 +52,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
-    template_name = 'post_edit.html'
+    template_name = 'blog/post_edit.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -62,9 +63,10 @@ class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
+
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    template_name = 'post_delete.html'
+    template_name = 'blog/post_delete.html'
     success_url = reverse_lazy('blog:home')
     
     def delete(self, request, *args, **kwargs):
@@ -80,9 +82,8 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == post.author
     
 
-
 class PostSearchView(View):
-    template_name = 'post_search.html'
+    template_name = 'blog/post_search.html'
 
     def get(self, request):
         query = request.GET.get('query', '')
@@ -93,7 +94,7 @@ class PostSearchView(View):
 
 class SignupView(View):
     form_class = UserCreationForm
-    template_name = 'signup.html'
+    template_name = 'blog/signup.html'
 
     def get(self, request):
         form = self.form_class()
@@ -110,7 +111,7 @@ class SignupView(View):
 
 class LoginView(View):
     form_class = AuthenticationForm
-    template_name = 'login.html'
+    template_name = 'blog/login.html'
 
     def get(self, request):
         form = self.form_class()
@@ -127,7 +128,7 @@ class LoginView(View):
 class LogoutView(AuthLogoutView):
     next_page = 'blog:welcome'
 
-class PostCreateView(CreateView):
-    model = Post
-    form_class = PostForm
-    template_name = 'blog/post_write.html'
+
+class DeletedPostView(View):
+    def get(self):
+        return HttpResponseNotFound("존재하지 않는 게시글입니다.")
