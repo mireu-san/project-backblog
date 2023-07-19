@@ -8,7 +8,12 @@
 <body>
     <h2>Latest Blog Posts:</h2>
     {% include 'blog_list.html' %}
-    <a href="{% url 'blog:post_create' %}">Write a Post</a>   
+    <a href="{% url 'blog:post_create' %}">Write a Post</a>  
+    
+    <form action="{% url 'blog:post_search' %}" method="GET">
+        <input type="text" name="query" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
 </body>
 </html>
 

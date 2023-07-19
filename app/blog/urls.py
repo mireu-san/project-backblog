@@ -5,7 +5,9 @@ from .views import (
     BlogDetailView, 
     WelcomeView, 
     PostCreateView,
-    PostEditView
+    PostEditView,
+    PostDeleteView,
+    PostSearchView,
 )
 
 app_name = "blog"
@@ -33,5 +35,11 @@ urlpatterns = [
 
     # 수정.
     path('blog/edit/<int:pk>/', PostEditView.as_view(), name='post_edit'),
+
+    # 삭제.
+    path('blog/delete/<int:pk>/', PostDeleteView.as_view(), name='post_delete'),
+
+    # 검색
+    path('search/', PostSearchView.as_view(), name='post_search'),
 ]
 
