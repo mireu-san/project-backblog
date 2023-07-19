@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LogoutView as AuthLogoutView
 from django.shortcuts import render, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 
 class WelcomeView(View):
@@ -48,7 +48,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class PostEditView(UpdateView):
+class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
     template_name = 'post_edit.html'
@@ -57,18 +57,28 @@ class PostEditView(UpdateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
+    # 현재 로그인한 유저가 작성자인지 확인
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
 
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('blog:home')
-
+    
     def delete(self, request, *args, **kwargs):
         try:
             return super().delete(request, *args, **kwargs)
         except Exception as e:
             error_message = '이런! 문제가 발생했습니다. 잠시 후 다시 시도 해 주세요. 지속될 경우 문의해주세요.'
             return HttpResponseServerError(error_message)
+        
+    # 현재 로그인한 유저가 작성자인지 확인
+    def test_func(self):
+        post = self.get_object()
+        return self.request.user == post.author
+    
 
 
 class PostSearchView(View):
