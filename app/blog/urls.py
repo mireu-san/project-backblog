@@ -40,6 +40,9 @@ urlpatterns = [
     path('blog/delete/<int:pk>/', PostDeleteView.as_view(), name='post_delete'),
 
     # 검색
+    # path('blog/search/<str:tag>/', PostSearchView.as_view(), name='post_search'),
+    # path('blog/search/', PostSearchView.as_view(), name='search'),
     path('search/', PostSearchView.as_view(), name='post_search'),
+
 ]
 

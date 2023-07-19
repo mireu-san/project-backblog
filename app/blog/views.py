@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.http import HttpResponseServerError
 from .models import Post
-
+from django.shortcuts import redirect
 
 class WelcomeView(View):
     template_name = 'welcome.html'
@@ -64,7 +64,7 @@ class PostDeleteView(DeleteView):
         except Exception as e:
             error_message = '이런! 문제가 발생했습니다. 잠시 후 다시 시도 해 주세요. 지속될 경우 문의해주세요.'
             return HttpResponseServerError(error_message)
-        
+
 
 class PostSearchView(View):
     template_name = 'post_search.html'
@@ -73,4 +73,4 @@ class PostSearchView(View):
         query = request.GET.get('query', '')
         results = Post.objects.filter(title__icontains=query)
         context = {'query': query, 'results': results}
-        return render(request, self.template_name, context)  
+        return render(request, self.template_name, context)

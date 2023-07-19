@@ -11,11 +11,10 @@
     <p>Number of matched posts: {{ results|length }}</p>
     <ul>
     {% for result in results %}
-    <li><a href="{% url 'blog:blog_detail' pk=result.pk %}">{{ result.title }}</a></li>
+        <li><a href="{% url 'blog:blog_detail' pk=result.pk %}">{{ result.title }}</a></li>
     {% empty %}
         <li>No results found.</li>
     {% endfor %}
     </ul>
-    <a href="{% url 'blog:home' %}">Go back to blog</a>
 </body>
 </html>
