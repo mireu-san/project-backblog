@@ -15,6 +15,13 @@
         <button type="submit">Search</button>
     </form>
         
+    {% if user.is_authenticated %}
+    <a href="{% url 'blog:logout' %}">Logout</a>
+    {% else %}
+    <a href="{% url 'blog:login' %}">Login</a>
+    <a href="{% url 'blog:signup' %}">Sign up</a>
+    {% endif %}
+    
 </body>
 </html>
 

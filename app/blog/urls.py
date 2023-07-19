@@ -8,6 +8,9 @@ from .views import (
     PostEditView,
     PostDeleteView,
     PostSearchView,
+    LoginView,
+    LogoutView,
+    SignupView,
 )
 
 app_name = "blog"
@@ -41,8 +44,11 @@ urlpatterns = [
 
     # 검색
     # path('blog/search/<str:tag>/', PostSearchView.as_view(), name='post_search'),
-    # path('blog/search/', PostSearchView.as_view(), name='search'),
-    path('search/', PostSearchView.as_view(), name='post_search'),
+    path('blog/search/', PostSearchView.as_view(), name='post_search'),
 
+    # 로그인
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('signup/', SignupView.as_view(), name='signup'),
 ]
 

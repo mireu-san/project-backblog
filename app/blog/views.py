@@ -5,7 +5,12 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.http import HttpResponseServerError
 from .models import Post
-from django.shortcuts import redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login
+from django.contrib.auth.views import LogoutView as AuthLogoutView
+from django.shortcuts import render, redirect
+
+
 
 class WelcomeView(View):
     template_name = 'welcome.html'
@@ -74,3 +79,41 @@ class PostSearchView(View):
         results = Post.objects.filter(title__icontains=query)
         context = {'query': query, 'results': results}
         return render(request, self.template_name, context)
+
+
+class SignupView(View):
+    form_class = UserCreationForm
+    template_name = 'signup.html'
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('blog:home')
+        return render(request, self.template_name, {'form': form})
+    
+
+class LoginView(View):
+    form_class = AuthenticationForm
+    template_name = 'login.html'
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            return redirect('blog:home')
+        return render(request, self.template_name, {'form': form})
+    
+
+class LogoutView(AuthLogoutView):
+    next_page = 'blog:welcome'
+
