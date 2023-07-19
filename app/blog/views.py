@@ -56,6 +56,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = 'post_write.html'
     success_url = '/blog/' 
 
+    # Post 객체 생성 시점에 author가 제대로 설정되고 있는지 확인
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -66,6 +67,7 @@ class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     fields = ['title', 'content']
     template_name = 'post_edit.html'
 
+    # Post 객체 생성 시점에 author가 제대로 설정되고 있는지 확인
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -143,7 +145,7 @@ class LogoutView(AuthLogoutView):
 class PostCreateView(CreateView):
     model = Post
     form_class = PostForm
-    template_name = 'blog/post_write.html'
+    template_name = 'post_write.html'
 
 
 class DeletedPostView(View):

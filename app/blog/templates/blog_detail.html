@@ -17,11 +17,11 @@
 
 
     
-    {% comment %} <!-- Debugging Info Start -->
+    <!-- Debugging Info Start -->
     <p>Is user authenticated: {{ user.is_authenticated }}</p>
     <p>Current User: {{ user.username }}</p>
     <p>Post Author: {{ post.author.username }}</p>
-    <!-- Debugging Info End --> {% endcomment %}
+    <!-- Debugging Info End -->
 
     {% if user.is_authenticated and user == post.author %}
         <a href="{% url 'blog:post_edit' pk=post.pk %}">Edit</a>
