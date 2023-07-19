@@ -49,18 +49,6 @@ class BlogDetailView(DetailView):
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    form_class = PostForm
-    fields = ['title', 'content']  
-    template_name = 'post_write.html'
-    success_url = '/blog/' 
-
-    # Post 객체 생성 시점에 author가 제대로 설정되고 있는지 확인
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
 
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -142,10 +130,17 @@ class LoginView(View):
 class LogoutView(AuthLogoutView):
     next_page = 'blog:welcome'
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     template_name = 'post_write.html'
+    success_url = '/blog/' 
+
+    # Post 객체 생성 시점에 author가 제대로 설정되고 있는지 확인
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
 
 
 class DeletedPostView(View):
