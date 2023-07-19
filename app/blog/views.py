@@ -13,7 +13,7 @@ from .forms import PostForm
 
 
 class WelcomeView(View):
-    template_name = 'blog/welcome.html'
+    template_name = 'welcome.html'
 
     def get(self, request):
         return render(request, self.template_name)
@@ -21,27 +21,39 @@ class WelcomeView(View):
 
 class HomeView(ListView):
     model = Post
-    template_name = 'blog/home.html'
+    template_name = 'home.html'
     context_object_name = 'posts'
 
 
 class BlogListView(ListView):
     model = Post
-    template_name = 'blog/blog_list.html'
+    template_name = 'blog_list.html'
     context_object_name = 'posts'
 
 
 class BlogDetailView(DetailView):
     model = Post
-    template_name = 'blog/blog_detail.html'
+    template_name = 'blog_detail.html'
     context_object_name = 'post'
 
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except self.model.DoesNotExist:
+            return HttpResponseNotFound("존재하지 않는 게시글입니다.")
+        
+        # Increment the view count
+        self.object.view_count += 1
+        self.object.save()
+
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
     fields = ['title', 'content']  
-    template_name = 'blog/post_write.html'
+    template_name = 'post_write.html'
     success_url = '/blog/' 
 
     def form_valid(self, form):
@@ -52,7 +64,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'content']
-    template_name = 'blog/post_edit.html'
+    template_name = 'post_edit.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -63,10 +75,9 @@ class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.author
 
-
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    template_name = 'blog/post_delete.html'
+    template_name = 'post_delete.html'
     success_url = reverse_lazy('blog:home')
     
     def delete(self, request, *args, **kwargs):
@@ -82,8 +93,9 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return self.request.user == post.author
     
 
+
 class PostSearchView(View):
-    template_name = 'blog/post_search.html'
+    template_name = 'post_search.html'
 
     def get(self, request):
         query = request.GET.get('query', '')
@@ -94,7 +106,7 @@ class PostSearchView(View):
 
 class SignupView(View):
     form_class = UserCreationForm
-    template_name = 'blog/signup.html'
+    template_name = 'signup.html'
 
     def get(self, request):
         form = self.form_class()
@@ -111,7 +123,7 @@ class SignupView(View):
 
 class LoginView(View):
     form_class = AuthenticationForm
-    template_name = 'blog/login.html'
+    template_name = 'login.html'
 
     def get(self, request):
         form = self.form_class()
@@ -127,6 +139,11 @@ class LoginView(View):
 
 class LogoutView(AuthLogoutView):
     next_page = 'blog:welcome'
+
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_write.html'
 
 
 class DeletedPostView(View):
