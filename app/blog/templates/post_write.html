@@ -2,9 +2,9 @@
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <button type="submit">저장</button>
     </form>
-    <a href="{% url 'blog:home' %}">Go back to blog</a>
+    <a href="{% url 'blog:home' %}">블로그로 돌아가기</a>
     <style>
         body {
             display: flex;
