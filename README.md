@@ -56,44 +56,47 @@ http://127.0.0.1:8000/
 ## 1. 최초의 화면
 ![welcome page](app/a.png)
 
-## 2. 블로그 진입 시 화면.
+## 2. 비밀번호 변경
+![edit password](app/h.png)
+
+## 3. 블로그 진입 시 화면.
 home.html 의 template file 을 렌더링 한 후, blog_list.html 쪽에서 등록된 post 목록을 이곳에 표시합니다.
 ![blog home.html](app/b.png)
 
-## 3. 비 로그인 상태
+## 4. 비 로그인 상태
 ![비 로그인 상태](app/d.png)
 
-## 4. 회원가입
+## 5. 회원가입
 ![회원가입](app/e.png)
 
-## 5. 작성
+## 6. 작성
 ![작성 페이지](app/g.png)
 
-## 6. 사진 미디어, 그리고 로그인 작성자 일치 시 수정/삭제 권한.
+## 7. 사진 미디어, 그리고 로그인 작성자 일치 시 수정/삭제 권한.
 ![몰루 사진](app/c.png)
 
-## 7. 비 로그인 및 유저 인증이 일치하지 않는 경우, 수정 삭제 숨김.
+## 8. 비 로그인 및 유저 인증이 일치하지 않는 경우, 수정 삭제 숨김.
 ![비 로그인 시 수정 삭제 숨김](app/f.png)
 
-## 4. 상세 설명.
+## 상세 설명.
 ```
 URL 구성 (urls.py)
 ---------------------------
 
 블로그 앱의 URL 구성은 `urls.py` 파일에 정의되어 있습니다. URL 및 해당하는 뷰는 다음과 같습니다:
 
-- 루트 URL `/` 및 `/blog/`은 각각 `HomeView` 및 `WelcomeView`에 매핑됩니다.
-- `/list/` URL은 `BlogListView`를 통해 `blog_list.html` 템플릿을 렌더링합니다.
-- `/blog/<int:pk>/` URL은 `BlogDetailView`를 사용하여 블로그 게시물의 상세 보기를 표시합니다.
-- `/blog/write/` URL은 `PostCreateView`를 사용하여 새로운 블로그 게시물을 생성합니다.
-- `/blog/edit/<int:pk>/` URL은 `PostEditView`를 사용하여 기존의 블로그 게시물을 수정합니다.
-- `/blog/delete/<int:pk>/` URL은 `PostDeleteView`를 사용하여 블로그 게시물을 삭제합니다.
-- `/blog/search/` URL은 `PostSearchView`를 사용하여 블로그 게시물을 검색합니다.
-- `/login/` URL은 `LoginView`를 사용하여 사용자 로그인을 처리합니다.
-- `/logout/` URL은 사용자 로그아웃을 처리합니다.
-- `/signup/` URL은 `SignupView`를 사용하여 사용자 회원가입을 처리합니다.
-- `/blog/deleted/` URL은 삭제된 게시물에 대한 사용자 지정 메시지를 표시합니다.
-- `/change_password/` URL은 `ChangePasswordView`를 사용하여 사용자의 비밀번호를 변경합니다.
+- 루트 URL / 및 /blog/은 각각 HomeView 및 WelcomeView에 매핑됩니다.
+- /list/ URL은 BlogListView를 통해 blog_list.html 템플릿을 렌더링합니다.
+- /blog/<int:pk>/ URL은 BlogDetailView를 사용하여 블로그 게시물의 상세 보기를 표시합니다.
+- /blog/write/ URL은 PostCreateView를 사용하여 새로운 블로그 게시물을 생성합니다.
+- /blog/edit/<int:pk>/ URL은 PostEditView를 사용하여 기존의 블로그 게시물을 수정합니다.
+- /blog/delete/<int:pk>/ URL은 PostDeleteView를 사용하여 블로그 게시물을 삭제합니다.
+- /blog/search/ URL은 PostSearchView를 사용하여 블로그 게시물을 검색합니다.
+- /login/ URL은 LoginView를 사용하여 사용자 로그인을 처리합니다.
+- /logout/ URL은 사용자 로그아웃을 처리합니다.
+- /signup/ URL은 `SignupView`를 사용하여 사용자 회원가입을 처리합니다.
+- /blog/deleted/ URL은 삭제된 게시물에 대한 사용자 지정 메시지를 표시합니다.
+- /change_password/ URL은 `ChangePasswordView`를 사용하여 사용자의 비밀번호를 변경합니다.
 
 모델
 
