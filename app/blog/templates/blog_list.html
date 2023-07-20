@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Blog List</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    {% for post in posts %}
-        <div>
-            <h3>
-                <a href="{% url 'blog:blog_detail' post.pk %}">
-                    {{ post.title }}
-                </a>
-            </h3>
-            
-            <p>View Count: {{ post.view_count }}</p>
-        </div>
-    {% endfor %}
-</body>
-</html>
+{% load humanize %} <!-- humanize 필터를 사용하기 위해 로드 -->
 
-{% comment %} 
-admin page 에서 표시된 글을 id 별로 표기해서 보여주는 기능 페이지.
-home.html 에 종속되어 있음.
-{% endcomment %}
+{% for post in posts %}
+    <div class="post-item">
+        <h3 class="post-title">
+            <a href="{% url 'blog:blog_detail' post.pk %}">
+                {{ post.title }}
+            </a>
+        </h3>
+        <p class="post-view-count">View Count: {{ post.view_count|intcomma }}</p>
+    </div>
+{% endfor %}

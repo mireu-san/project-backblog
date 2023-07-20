@@ -4,6 +4,29 @@
     <title>The BackBlog</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        a {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border: 1px solid #000;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #000;
+            margin: 1rem 0;
+        }
+    </style>
 </head>
 <body>
     <h1>Welcome Page!</h1>
@@ -18,7 +41,3 @@
     {% endif %}
 </body>
 </html>
-
-{% comment %} 
-최초의 시작 화면. 커버 페이지 역할.
-{% endcomment %}

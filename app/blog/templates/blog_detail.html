@@ -4,36 +4,75 @@
     <title>Blog Detail</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+        }
+        .post-box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        img {
+            max-width: 100%;
+            max-height: 400px;
+            margin-bottom: 1rem;
+        }
+        .debug-info {
+            text-align: left;
+            margin-bottom: 1rem;
+        }
+        .edit-delete-links {
+            margin-top: 1rem;
+        }
+        .edit-delete-links a {
+            margin-right: 1rem;
+        }
+        .go-back-link {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
+    <div class="post-box">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
 
-   
-    <!-- Display the uploaded image if it exists -->
-    {% if post.picture %}
-        <img src="{{ post.picture.url }}" alt="Post image">
-    {% endif %}
+        {% if post.picture %}
+            <img src="{{ post.picture.url }}" alt="Post image">
+        {% endif %}
+    </div>
 
-
-    
     <!-- Debugging Info Start -->
-    <p>Is user authenticated: {{ user.is_authenticated }}</p>
-    <p>Current User: {{ user.username }}</p>
-    <p>Post Author: {{ post.author.username }}</p>
+    <div class="debug-info">
+        <p>승인된 계정의 유무: {{ user.is_authenticated }}</p>
+        <p>현재 로그인 된 사용자명: {{ user.username }}</p>
+        <p>작성자: {{ post.author.username }}</p>
+    </div>
     <!-- Debugging Info End -->
 
     {% if user.is_authenticated and user == post.author %}
-        <a href="{% url 'blog:post_edit' pk=post.pk %}">Edit</a>
-        <a href="{% url 'blog:post_delete' pk=post.pk %}">Delete</a>
+        <div class="edit-delete-links">
+            <a href="{% url 'blog:post_edit' pk=post.pk %}">Edit</a>
+            <a href="{% url 'blog:post_delete' pk=post.pk %}">Delete</a>
+        </div>
     {% endif %}
     
-    <a href="{% url 'blog:home' %}">Go back to blog</a>
+    <a href="{% url 'blog:home' %}" class="go-back-link">Go back to blog</a>
 </body>
 </html>
-
-
-{% comment %} 
-완전히 특정 id post 를 클릭하여,
-해당 글의 상세 내용보기를 열람하는 것을 구현하도록 하는 페이지.
-{% endcomment %}

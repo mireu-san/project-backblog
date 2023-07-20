@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
-from django.views.generic.edit import UpdateView, DeleteView
+from django.views.generic.edit import UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.views import View
 from django.http import HttpResponseServerError, HttpResponseNotFound
@@ -12,8 +12,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import PostForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-from django.contrib import messages
-from django.core.paginator import Paginator, Page
+from django.contrib.messages.views import SuccessMessageMixin
+
 
 class WelcomeView(View):
     template_name = 'welcome.html'
@@ -148,22 +148,22 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class DeletedPostView(View):
     def get(self, request):
         return HttpResponseNotFound("존재하지 않는 게시글입니다.")
-    
 
-class ChangePasswordView(LoginRequiredMixin, View):
+
+class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
     template_name = 'change_password.html'
+    form_class = PasswordChangeForm
     success_url = '/'
+    success_message = "비밀번호 변경 성공!"
 
-    def get(self, request):
-        form = PasswordChangeForm(user=request.user)
-        return render(request, self.template_name, {'form': form})
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.update({"user": self.request.user})
+        return kwargs
 
-    def post(self, request):
-        form = PasswordChangeForm(user=request.user, data=request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, '비밀번호 변경 성공!')
-            return redirect(self.success_url)
-        return render(request, self.template_name, {'form': form})
+    def form_valid(self, form):
+        user = form.save()
+        update_session_auth_hash(self.request, user)
+        return super().form_valid(form)
+
 
