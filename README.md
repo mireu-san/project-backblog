@@ -21,7 +21,8 @@
 
 - 프레임워크: Django (4.2.3)
 - 데이터베이스: SQLite3
-- 언어: Python, HTML/CSS
+- 언어: Python(3.10.6) 
+- 마크업, 스타일시트 언어: HTML/CSS
 - 기타 라이브러리: [black formatter, graphviz, Pillow, django-extensions]
 (자세한 것은 requirements.txt 를 참고해주세요.)
 ## 설치 및 실행
@@ -31,7 +32,7 @@
 ```windows powershell 기준
 # 가상환경 설정 및 활성화
 python -m venv backblog
-source backblog/bin/activate
+.\backblog\Scripts\activate
 
 # 의존성 설치
 pip install -r requirements.txt
@@ -40,7 +41,7 @@ pip install -r requirements.txt
 python manage.py migrate
 
 # 개발 서버 실행
-project-backblog\app\python manage.py runserver
+python manage.py runserver
 
 # 실행 주소
 http://127.0.0.1:8000/
@@ -48,7 +49,7 @@ http://127.0.0.1:8000/
 ## 3. 한계점
 - 블로그에 앞서, 스레드 형식의 게시판과 유저라는 요소에만 중점을 두고 있습니다.
 - UI 에 대한 사항은 배제하며 개발하였습니다.
-- 테스트 케이스 코드 와 같은 TDD 요소를 아직 적용하지 않았습니다.
+- 테스트 코드와 같은 TDD 요소는 현재 적용되지 않았습니다.
 - DB 관련 스케일링(향후 서비스 시) 이슈에 대한 요소는 아직 고려되지 않았습니다.
 - 현재 언어는 한국어만 지원됩니다.
 
@@ -85,15 +86,6 @@ URL 구성 (urls.py):
 - /login/ URL은 LoginView로, /logout/ URL은 LogoutView로 매핑됩니다.
 - /signup/ URL은 SignupView로, /blog/deleted/ URL은 DeletedPostView로 매핑됩니다.
 - /change_password/ URL은 ChangePasswordView로 매핑됩니다.
-
-모델 (models.py):
-- Post 모델에는 제목(title), 내용(content), 삭제 여부(is_deleted), 작성자(author), 작성 날짜(publication_date), 이미지(picture), 조회수(view_count) 필드가 있습니다.
-
-뷰 (views.py):
-- WelcomeView, HomeView, BlogListView, BlogDetailView, PostEditView, PostDeleteView, PostSearchView, SignupView, LoginView, LogoutView, PostCreateView, DeletedPostView, ChangePasswordView 뷰들이 있습니다.
-
-폼 (forms.py):
-- PostForm 폼 클래스가 존재합니다.
 ```
 
 ## DBML 이미지

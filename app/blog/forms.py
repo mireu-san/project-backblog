@@ -1,6 +1,11 @@
 from django import forms
 from .models import Post
 
+"""
+폼 (forms.py):
+- PostForm 폼 클래스가 존재합니다.
+"""
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post

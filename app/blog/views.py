@@ -14,6 +14,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.messages.views import SuccessMessageMixin
 
+"""
+뷰 (views.py):
+- WelcomeView, HomeView, BlogListView, BlogDetailView, PostEditView, PostDeleteView, PostSearchView, SignupView, LoginView, LogoutView, PostCreateView, DeletedPostView, ChangePasswordView 뷰들이 있습니다.
+"""
+
 
 class WelcomeView(View):
     template_name = 'welcome.html'

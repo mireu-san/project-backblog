@@ -4,6 +4,11 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+"""
+모델 (models.py):
+- Post 모델에는 제목(title), 내용(content), 삭제 여부(is_deleted), 작성자(author), 작성 날짜(publication_date), 이미지(picture), 조회수(view_count) 필드가 있습니다.
+"""
+
 class Post(models.Model):
     title = models.CharField(max_length=255)  # 글의 제목을 저장하는 문자열 필드입니다.
     content = models.TextField(max_length=2000)  # 글의 내용을 저장하는 긴 문자열 필드입니다.
