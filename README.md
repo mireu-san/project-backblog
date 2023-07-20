@@ -17,13 +17,13 @@
 - 게시글 목록 표시, 상세조회 보기
 ## 2.2 기술 스택
 
-프로젝트는 다음과 같은 기술을 사용하여 개발되었습니다:
+프로젝트는 다음과 같은 기술을 사용하여 개발되었습니다.
 
 - 프레임워크: Django (4.2.3)
 - 데이터베이스: SQLite3
 - 언어: Python, HTML/CSS
 - 기타 라이브러리: [black formatter, graphviz, Pillow, django-extensions]
-- [자세한 것은 requirements.txt 를 참고해주세요.]
+(자세한 것은 requirements.txt 를 참고해주세요.)
 ## 설치 및 실행
 
 아래의 명령어를 사용하여 프로젝트를 설치하고 실행할 수 있습니다:
