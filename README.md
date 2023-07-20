@@ -10,9 +10,11 @@
 
 - CRUD 기능: 블로그 게시물의 생성(Create), 조회(Read), 수정(Update), 삭제(Delete) 기능을 제공합니다.
 - 회원가입 기능: 사용자는 회원으로 가입하여 블로그를 이용할 수 있습니다.
+- 로그인 기능
+- 회원 인증(Authorization) 기반 로직.
 - 비밀번호 변경 기능: 회원은 자신의 비밀번호를 변경할 수 있습니다.
-- 추가 예정 기능: 근시일에 방명록, 대댓글 기능 등이 추가될 예정입니다.
-
+- 조회수 표시 기능
+- 게시글 목록 표시, 상세조회 보기
 ## 2.2 기술 스택
 
 프로젝트는 다음과 같은 기술을 사용하여 개발되었습니다:
@@ -43,6 +45,13 @@ project-backblog\app\python manage.py runserver
 # 실행 주소
 http://127.0.0.1:8000/
 ```
+## 3. 한계점.
+- 블로그에 앞서, 스레드 형식의 게시판과 유저라는 요소에만 중점을 두고 있습니다.
+- 현재 언어는 한국어만 지원됩니다.
+- UI 에 대한 사항은 배제하며 개발하였습니다.
+- 테스트 케이스 코드 와 같은 TDD 요소를 아직 적용하지 않았습니다.
+- DB 관련 스케일링(향후 서비스 시) 이슈에 대한 요소는 아직 고려되지 않았습니다.
+
 # 구동 예시
 ## 1. 최초의 화면
 ![welcome page](app/a.png)
@@ -66,3 +75,65 @@ home.html 의 template file 을 렌더링 한 후, blog_list.html 쪽에서 등�
 ## 7. 비 로그인 및 유저 인증이 일치하지 않는 경우, 수정 삭제 숨김.
 ![비 로그인 시 수정 삭제 숨김](app/f.png)
 
+## 4. 상세 설명.
+```
+URL 구성 (urls.py)
+---------------------------
+
+블로그 앱의 URL 구성은 `urls.py` 파일에 정의되어 있습니다. URL 및 해당하는 뷰는 다음과 같습니다:
+
+- 루트 URL `/` 및 `/blog/`은 각각 `HomeView` 및 `WelcomeView`에 매핑됩니다.
+- `/list/` URL은 `BlogListView`를 통해 `blog_list.html` 템플릿을 렌더링합니다.
+- `/blog/<int:pk>/` URL은 `BlogDetailView`를 사용하여 블로그 게시물의 상세 보기를 표시합니다.
+- `/blog/write/` URL은 `PostCreateView`를 사용하여 새로운 블로그 게시물을 생성합니다.
+- `/blog/edit/<int:pk>/` URL은 `PostEditView`를 사용하여 기존의 블로그 게시물을 수정합니다.
+- `/blog/delete/<int:pk>/` URL은 `PostDeleteView`를 사용하여 블로그 게시물을 삭제합니다.
+- `/blog/search/` URL은 `PostSearchView`를 사용하여 블로그 게시물을 검색합니다.
+- `/login/` URL은 `LoginView`를 사용하여 사용자 로그인을 처리합니다.
+- `/logout/` URL은 사용자 로그아웃을 처리합니다.
+- `/signup/` URL은 `SignupView`를 사용하여 사용자 회원가입을 처리합니다.
+- `/blog/deleted/` URL은 삭제된 게시물에 대한 사용자 지정 메시지를 표시합니다.
+- `/change_password/` URL은 `ChangePasswordView`를 사용하여 사용자의 비밀번호를 변경합니다.
+
+모델
+
+ (models.py)
+--------------------
+
+`Post` 모델은 블로그 게시물을 나타내며 다음과 같은 필드를 포함합니다:
+
+- `title`: 게시물 제목
+- `content`: 게시물 내용
+- `is_deleted`: 게시물 삭제 여부
+- `author`: 게시물 작성자(User 모델과의 외래 키 관계)
+- `publication_date`: 게시물 작성 날짜
+- `picture`: 게시물 이미지
+- `view_count`: 게시물 조회수
+
+뷰 (views.py)
+----------------
+
+- `WelcomeView`: `welcome.html` 템플릿을 렌더링하여 사용자에게 초기 화면을 보여줍니다.
+- `HomeView`: `home.html` 템플릿을 렌더링하여 최신 블로그 게시물을 보여줍니다.
+- `BlogListView`: `blog_list.html` 템플릿을 렌더링하여 모든 블로그 게시물을 보여줍니다.
+- `BlogDetailView`: `blog_detail.html` 템플릿을 렌더링하여 특정 블로그 게시물의 세부 정보를 보여줍니다.
+- `PostEditView`: `post_edit.html` 템플릿을 렌더링하여 블로그 게시물을 수정합니다.
+- `PostDeleteView`: `post_delete.html` 템플릿을 렌더링하여 블로그 게시물을 삭제합니다.
+- `PostSearchView`: `post_search.html` 템플릿을 렌더링하여 블로그 게시물을 검색합니다.
+- `SignupView`: `signup.html` 템플릿을 렌더링하여 사용자 회원가입을 처리합니다.
+- `LoginView`: `login.html` 템플릿을 렌더링하여 사용자 로그인을 처리합니다.
+- `LogoutView`: 사용자 로그아웃을 처리합니다.
+- `PostCreateView`: `post_write.html` 템플릿을 렌더링하여 새로운 블로그 게시물을 생성합니다.
+- `DeletedPostView`: 삭제된 게시물에 대한 사용자 정의 메시지를 표시합니다.
+- `ChangePasswordView`: `change_password.html` 템플릿을 렌더링하여 사용자의 비밀번호를 변경합니다.
+
+폼 (forms.py)
+-----------------
+
+`PostForm` 폼 클래스는 `forms.py` 파일에 정의되어 있습니다. 이 폼은 `PostCreateView`와 `PostEditView`에서 블로그 게시물의 생성 및 수정에 사용됩니다.
+
+설정 (settings.py)
+------------------------
+
+`settings.py` 파일에는 블로그 프로젝트의 Django 설정이 포함되어 있습니다. 데이터베이스, 정적 파일, 미디어 파일, 설치된 앱, 미들웨어, 템플릿, 인증 등의 설정이 포함되어 있습니다.
+```
