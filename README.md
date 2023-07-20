@@ -64,7 +64,7 @@ home.html 의 template file 을 렌더링 한 후, blog_list.html 쪽에서 등�
 ![blog home.html](app/b.png)
 
 ## 4. 회원가입 
-![회원가입](app/e.png)
+![회원가입 화면](app/e1.png)
 
 ## 5. 작성 
 ![작성 페이지](app/g.png)
