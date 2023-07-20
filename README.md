@@ -79,11 +79,15 @@ home.html 의 template file 을 렌더링 한 후, blog_list.html 쪽에서 등�
 ```
 URL 구성 (urls.py):
 - 루트 URL /와 /blog/은 각각 HomeView와 WelcomeView에 매핑됩니다.
-- /list/ URL은 BlogListView로, /blog/<int:pk>/ URL은 BlogDetailView로, /blog/write/ URL은 PostCreateView로, /blog/edit/<int:pk>/ URL은 PostEditView로, /blog/delete/<int:pk>/ URL은 PostDeleteView로, /blog/search/ URL은 PostSearchView로 매핑됩니다.
-- /login/ URL은 LoginView로, /logout/ URL은 LogoutView로, /signup/ URL은 SignupView로, /blog/deleted/ URL은 DeletedPostView로, /change_password/ URL은 ChangePasswordView로 매핑됩니다.
+- /list/ URL은 BlogListView로, /blog/<int:pk>/ URL은 BlogDetailView로 매핑됩니다.
+- /blog/write/ URL은 PostCreateView로, /blog/edit/<int:pk>/ URL은 PostEditView로 매핑됩니다.
+- /blog/delete/<int:pk>/ URL은 PostDeleteView로, /blog/search/ URL은 PostSearchView로 매핑됩니다.
+- /login/ URL은 LoginView로, /logout/ URL은 LogoutView로 매핑됩니다.
+- /signup/ URL은 SignupView로, /blog/deleted/ URL은 DeletedPostView로 매핑됩니다.
+- /change_password/ URL은 ChangePasswordView로 매핑됩니다.
 
 모델 (models.py):
-- Post 모델에는 title, content, is_deleted, author, publication_date, picture, view_count 필드가 있습니다.
+- Post 모델에는 제목(title), 내용(content), 삭제 여부(is_deleted), 작성자(author), 작성 날짜(publication_date), 이미지(picture), 조회수(view_count) 필드가 있습니다.
 
 뷰 (views.py):
 - WelcomeView, HomeView, BlogListView, BlogDetailView, PostEditView, PostDeleteView, PostSearchView, SignupView, LoginView, LogoutView, PostCreateView, DeletedPostView, ChangePasswordView 뷰들이 있습니다.
