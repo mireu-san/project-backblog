@@ -12,6 +12,7 @@ from .views import (
     LogoutView,
     SignupView,
     DeletedPostView,
+    ChangePasswordView,
 )
 
 app_name = "blog"
@@ -55,5 +56,8 @@ urlpatterns = [
 
     # 삭제 된 게시글 진입 시 커스텀 경고문
     path('blog/deleted/', DeletedPostView.as_view(), name='deleted_post'),
+
+    # 비밀번호 변경
+    path('change_password/', ChangePasswordView.as_view(), name='change_password'),
 ]
 

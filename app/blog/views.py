@@ -10,6 +10,8 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LogoutView as AuthLogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import PostForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 class WelcomeView(View):
@@ -141,7 +143,23 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
+# 삭제 된 게시글 진입 시 커스텀 경고문 (확인 하려면 settings.py 에서 debug = false)
 class DeletedPostView(View):
     def get(self, request):
         return HttpResponseNotFound("존재하지 않는 게시글입니다.")
+    
+
+class ChangePasswordView(LoginRequiredMixin, View):
+    template_name = 'change_password.html'
+    success_url = '/'
+
+    def post(self, request):
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            # 리다이렉트 전 메시지 추가
+            response = redirect(self.success_url)
+            response.set_cookie('message', '비밀번호 변경 성공!', max_age=10) # 쿠키를 사용하여 메시지를 설정
+            return response
+        return render(request, self.template_name, {'form': form})
