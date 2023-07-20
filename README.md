@@ -57,7 +57,7 @@ http://127.0.0.1:8000/
 ![welcome page](app/a.png)
 
 ## 2. 비밀번호 변경
-![edit password](app/h.png)
+![edit password](app/h1.png)
 
 ## 3. 블로그 진입 시 화면 (비 로그인 상태)
 home.html 의 template file 을 렌더링 한 후, blog_list.html 쪽에서 등록된 post 목록을 이곳에 표시합니다.
