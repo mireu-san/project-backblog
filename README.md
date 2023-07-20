@@ -100,42 +100,37 @@ URL 구성 (urls.py)
  (models.py)
 --------------------
 
-`Post` 모델은 블로그 게시물을 나타내며 다음과 같은 필드를 포함합니다:
+Post 모델은 블로그 게시물을 나타내며 다음과 같은 필드를 포함합니다:
 
-- `title`: 게시물 제목
-- `content`: 게시물 내용
-- `is_deleted`: 게시물 삭제 여부
-- `author`: 게시물 작성자(User 모델과의 외래 키 관계)
-- `publication_date`: 게시물 작성 날짜
-- `picture`: 게시물 이미지
-- `view_count`: 게시물 조회수
+- title: 게시물 제목
+- content: 게시물 내용
+- is_deleted: 게시물 삭제 여부
+- author: 게시물 작성자(User 모델과의 외래 키 관계)
+- publication_date: 게시물 작성 날짜
+- picture: 게시물 이미지
+- view_count: 게시물 조회수
 
 뷰 (views.py)
 ----------------
 
-- `WelcomeView`: `welcome.html` 템플릿을 렌더링하여 사용자에게 초기 화면을 보여줍니다.
-- `HomeView`: `home.html` 템플릿을 렌더링하여 최신 블로그 게시물을 보여줍니다.
-- `BlogListView`: `blog_list.html` 템플릿을 렌더링하여 모든 블로그 게시물을 보여줍니다.
-- `BlogDetailView`: `blog_detail.html` 템플릿을 렌더링하여 특정 블로그 게시물의 세부 정보를 보여줍니다.
-- `PostEditView`: `post_edit.html` 템플릿을 렌더링하여 블로그 게시물을 수정합니다.
-- `PostDeleteView`: `post_delete.html` 템플릿을 렌더링하여 블로그 게시물을 삭제합니다.
-- `PostSearchView`: `post_search.html` 템플릿을 렌더링하여 블로그 게시물을 검색합니다.
-- `SignupView`: `signup.html` 템플릿을 렌더링하여 사용자 회원가입을 처리합니다.
-- `LoginView`: `login.html` 템플릿을 렌더링하여 사용자 로그인을 처리합니다.
-- `LogoutView`: 사용자 로그아웃을 처리합니다.
-- `PostCreateView`: `post_write.html` 템플릿을 렌더링하여 새로운 블로그 게시물을 생성합니다.
-- `DeletedPostView`: 삭제된 게시물에 대한 사용자 정의 메시지를 표시합니다.
-- `ChangePasswordView`: `change_password.html` 템플릿을 렌더링하여 사용자의 비밀번호를 변경합니다.
+- WelcomeView: welcome.html 템플릿을 렌더링하여 사용자에게 초기 화면을 보여줍니다.
+- HomeView: home.html 템플릿을 렌더링하여 최신 블로그 게시물을 보여줍니다.
+- BlogListView: blog_list.html 템플릿을 렌더링하여 모든 블로그 게시물을 보여줍니다.
+- BlogDetailView: blog_detail.html 템플릿을 렌더링하여 특정 블로그 게시물의 세부 정보를 보여줍니다.
+- PostEditView: post_edit.html 템플릿을 렌더링하여 블로그 게시물을 수정합니다.
+- PostDeleteView: post_delete.html 템플릿을 렌더링하여 블로그 게시물을 삭제합니다.
+- PostSearchView: post_search.html 템플릿을 렌더링하여 블로그 게시물을 검색합니다.
+- SignupView: signup.html 템플릿을 렌더링하여 사용자 회원가입을 처리합니다.
+- LoginView: login.html 템플릿을 렌더링하여 사용자 로그인을 처리합니다.
+- LogoutView:사용자 로그아웃을처리합니다.
+- PostCreateView: post_write.html 템플릿을 렌더링하여 새로운 블로그 게시물을 생성합니다.
+- DeletedPostView: 삭제된 게시물에 대한 사용자 정의 메시지를 표시합니다.
+- ChangePasswordView: change_password.html 템플릿을 렌더링하여 사용자의 비밀번호를 변경합니다.
 
 폼 (forms.py)
 -----------------
 
-`PostForm` 폼 클래스는 `forms.py` 파일에 정의되어 있습니다. 이 폼은 `PostCreateView`와 `PostEditView`에서 블로그 게시물의 생성 및 수정에 사용됩니다.
-
-설정 (settings.py)
-------------------------
-
-`settings.py` 파일에는 블로그 프로젝트의 Django 설정이 포함되어 있습니다. 데이터베이스, 정적 파일, 미디어 파일, 설치된 앱, 미들웨어, 템플릿, 인증 등의 설정이 포함되어 있습니다.
+PostForm 폼 클래스는 `forms.py` 파일에 정의되어 있습니다. 이 폼은 `PostCreateView`와 PostEditView에서 블로그 게시물의 생성 및 수정에 사용됩니다.
 ```
 
 ## 그 외. (ERDs)
