@@ -166,3 +166,4 @@ class ChangePasswordView(LoginRequiredMixin, View):
             messages.success(request, '비밀번호 변경 성공!')
             return redirect(self.success_url)
         return render(request, self.template_name, {'form': form})
+
