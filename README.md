@@ -63,5 +63,3 @@ home.html 의 template file 을 렌더링 한 후, blog_list.html 쪽에서 등�
 ## 6. 비 로그인 및 유저 인증이 일치하지 않는 경우, 수정 삭제 숨김.
 ![비 로그인 시 수정 삭제 숨김](app/f.png)
 
-ERDs
-![erd database diagram](app/erd_graphviz.png)
