@@ -137,3 +137,6 @@ URL 구성 (urls.py)
 
 `settings.py` 파일에는 블로그 프로젝트의 Django 설정이 포함되어 있습니다. 데이터베이스, 정적 파일, 미디어 파일, 설치된 앱, 미들웨어, 템플릿, 인증 등의 설정이 포함되어 있습니다.
 ```
+
+## 그 외. (ERDs)
+![blog home.html](app/erd_graphviz.png)
