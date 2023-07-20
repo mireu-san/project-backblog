@@ -96,5 +96,5 @@ URL 구성 (urls.py):
 - PostForm 폼 클래스가 존재합니다.
 ```
 
-## 그 외. (ERDs)
-![blog home.html](app/erd_graphviz.png)
+## DBML 이미지
+![blog home.html](app/dbml.png)
