@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <h1>Delete Post</h1>
-    <p>Are you sure you want to delete this post?</p>
+    <h1>Delete Post!</h1>
+    <p>정말 삭제하시겠습니까? (되돌릴 수 없습니다)</p>
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit">삭제</button>
     </form>
-    <a href="{% url 'blog:blog_detail' pk=post.pk %}">Cancel</a>
+    <a href="{% url 'blog:blog_detail' pk=post.pk %}">취소</a>
 </body>
 </html>
