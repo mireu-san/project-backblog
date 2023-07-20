@@ -1,102 +1,59 @@
 # 환영합니다!
 
-# 요약.
-- 0단계: Django Admin을 이용한 게시글 읽기 및 메인페이지 구현.
-- 1단계: 블로그 CRUD 기능 구현.
-- 2단계: 로그인/회원가입 기능을 이용하여 블로그 구현.
-- 3단계: 블로그 기능 외 추가 기능 작성 및 배포.
+# 1. 프로젝트 제목
+'블로거와 방문자가 함께하는 소설 리뷰 블로그'가 이 프로젝트의 핵심 입니다.
 
+# 2. 프로젝트 설명.
+- 블로그 기능을 제공하는 웹 애플리케이션입니다.
+- 
+
+## 2.1 주요 기능
+
+- CRUD 기능: 블로그 게시물의 생성(Create), 조회(Read), 수정(Update), 삭제(Delete) 기능을 제공합니다.
+- 회원가입 기능: 사용자는 회원으로 가입하여 블로그를 이용할 수 있습니다.
+- 비밀번호 변경 기능: 회원은 자신의 비밀번호를 변경할 수 있습니다.
+- 추가 예정 기능: 근시일에 방명록, 대댓글 기능 등이 추가될 예정입니다.
+
+## 2.2 기술 스택
+
+프로젝트는 다음과 같은 기술을 사용하여 개발되었습니다:
+
+- 프레임워크: Django
+- 데이터베이스: SQLite3
+- 기타 라이브러리: [black formatter, graphviz, Pillow, django-extensions]
+- [자세한 것은 requirements.txt 를 참고해주세요.]
+## 설치 및 실행
+
+아래의 명령어를 사용하여 프로젝트를 설치하고 실행할 수 있습니다:
+
+```windows powershell 기준
+# 가상환경 설정 및 활성화
+python -m venv backblog
+source backblog/bin/activate
+
+# 의존성 설치
+pip install -r requirements.txt
+
+# 데이터베이스 마이그레이션
+python manage.py migrate
+
+# 개발 서버 실행
+project-backblog\app\python manage.py runserver
+
+# 실행 주소
+http://127.0.0.1:8000/
+
+ERDs
 ![erd database diagram](app/erd_graphviz.png)
-# 목표.
-건전하고 가볍게 읽을 수 있는 소설 리뷰 블로그.
-================
 
-이것은 Django 프레임워크를 사용하여 블로그 기능을 구현한 프로젝트에 대한 README 파일입니다. 이 프로젝트는 블로그 관련 다양한 Django 기능의 흐름과 기능을 보여줍니다.
 
-폴더 구조
-----------------
+a - welcome page
+b - blog (home.html)
+c - 몰루
+d - 비 로그인 단계
+e - 회원가입
+f - 비 로그인 (수정 불가, 삭제불가)
 
-프로젝트의 폴더 구조는 다음과 같습니다:
-
-```
-├─ .gitignore
-├─ .vscode
-│  └─ settings.json
-├─ app
-│  ├─ app
-│  │  ├─ asgi.py
-│  │  ├─ settings.py
-│  │  ├─ urls.py
-│  │  ├─ wsgi.py
-│  │  └─ __init__.py
-│  ├─ blog
-│  │  ├─ admin.py
-│  │  ├─ apps.py
-│  │  ├─ forms.py
-│  │  ├─ migrations
-│  │  │  ├─ 0001_initial.py
-│  │  │  ├─ 0002_post_is_deleted.py
-│  │  │  └─ __init__.py
-│  │  ├─ models.py
-│  │  ├─ templates
-│  │  │  ├─ blog
-│  │  │  ├─ blog_detail.html
-│  │  │  ├─ blog_list.html
-│  │  │  ├─ change_password.html
-│  │  │  ├─ home.html
-│  │  │  ├─ login.html
-│  │  │  ├─ post_404.html
-│  │  │  ├─ post_delete.html
-│  │  │  ├─ post_edit.html
-│  │  │  ├─ post_form.html
-│  │  │  ├─ post_search.html
-│  │  │  ├─ post_write.html
-│  │  │  ├─ signup.html
-│  │  │  └─ welcome.html
-│  │  ├─ tests.py
-│  │  ├─ urls.py
-│  │  ├─ views.py
-│  │  └─ __init__.py
-│  └─ manage.py
-├─ backblog
-│  ├─ Include
-│  ├─ Lib
-│  ├─ pyvenv.cfg
-│  └─ Scripts
-│     ├─ activate
-│     ├─ activate.bat
-│     ├─ Activate.ps1
-│     ├─ black.exe
-│     ├─ blackd.exe
-│     ├─ deactivate.bat
-│     ├─ django-admin.exe
-│     ├─ pip.exe
-│     ├─ pip3.10.exe
-│     ├─ pip3.11.exe
-│     ├─ pip3.exe
-│     ├─ python.exe
-│     ├─ pythonw.exe
-│     └─ sqlformat.exe
-├─ projectblog
-│  ├─ app
-│  │  ├─ asgi.py
-│  │  ├─ settings.py
-│  │  ├─ urls.py
-│  │  ├─ wsgi.py
-│  │  └─ __init__.py
-│  ├─ blog
-│  │  ├─ admin.py
-│  │  ├─ apps.py
-│  │  ├─ migrations
-│  │  │  └─ __init__.py
-│  │  ├─ models.py
-│  │  ├─ tests.py
-│  │  ├─ urls.py
-│  │  ├─ views.py
-│  │  └─ __init__.py
-│  └─ manage.py
-└─ README.md
-```
 
 URL 구성 (urls.py)
 ---------------------------
