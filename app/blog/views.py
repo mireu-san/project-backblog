@@ -12,7 +12,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import PostForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
-
+from django.contrib import messages
+from django.core.paginator import Paginator, Page
 
 class WelcomeView(View):
     template_name = 'welcome.html'
@@ -153,13 +154,15 @@ class ChangePasswordView(LoginRequiredMixin, View):
     template_name = 'change_password.html'
     success_url = '/'
 
+    def get(self, request):
+        form = PasswordChangeForm(user=request.user)
+        return render(request, self.template_name, {'form': form})
+
     def post(self, request):
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
-            # 리다이렉트 전 메시지 추가
-            response = redirect(self.success_url)
-            response.set_cookie('message', '비밀번호 변경 성공!', max_age=10) # 쿠키를 사용하여 메시지를 설정
-            return response
+            messages.success(request, '비밀번호 변경 성공!')
+            return redirect(self.success_url)
         return render(request, self.template_name, {'form': form})

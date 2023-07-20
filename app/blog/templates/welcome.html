@@ -11,6 +11,7 @@
 
     {% if user.is_authenticated %}
         <a href="{% url 'blog:logout' %}">Logout</a>
+        <a href="{% url 'blog:change_password' %}">비밀번호 변경하기</a>
     {% else %}
         <a href="{% url 'blog:login' %}">Login</a>
         <a href="{% url 'blog:signup' %}">Sign up</a>
