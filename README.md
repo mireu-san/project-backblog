@@ -97,3 +97,4 @@ URL 구성 (urls.py):
 
 ## Command line (development only)
 docker-compose run --rm app sh -c "name of its object"
+
