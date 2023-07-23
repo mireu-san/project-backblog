@@ -195,8 +195,6 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
 class PostPagiView(ListView):
     model = Post
-    template_name = 'blog/post_list.html'
+    template_name = 'blog/post_pagination.html'
     context_object_name = 'posts'
     paginate_by = 5
-
-
