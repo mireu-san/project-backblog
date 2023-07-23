@@ -14,7 +14,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
-
+from django.db.models import F
 
 
 """
@@ -35,6 +35,7 @@ class HomeView(ListView):
     model = Post
     template_name = 'home.html'
     context_object_name = 'posts'
+    paginate_by = 5
     # Post 모델의 모든 객체를 가져와서 'home.html' 템플릿에 넘겨주는 ListView입니다.
 
 
@@ -44,8 +45,6 @@ class BlogListView(ListView):
     context_object_name = 'posts'
     # Post 모델의 모든 객체를 가져와서 'blog_list.html' 템플릿에 넘겨주는 ListView입니다.
 
-
-from django.db.models import F
 
 class BlogDetailView(DetailView):
     model = Post
@@ -198,27 +197,8 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
         # 폼이 유효한 경우 비밀번호를 변경하고 세션의 인증 해시를 업데이트합니다.
 
 
-class PostPagiView(ListView):
-    model = Post
-    template_name = 'blog/post_pagination.html'
-    context_object_name = 'posts'
-    paginate_by = 5
-    ordering = ['-created_at']
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        paginator = Paginator(self.get_queryset(), self.paginate_by)
-
-        page = self.request.GET.get('page')
-        posts = paginator.get_page(page)
-
-        context.update({
-            'posts': posts,
-        })
-        return context
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        # Filter the queryset based on the filters applied
-        queryset = queryset.order_by('-created_at')
-        return queryset
+# class PostPagiView(ListView):
+#     model = Post
+#     template_name = 'blog/post_pagination.html'
+#     context_object_name = 'posts'
+#     paginate_by = 5

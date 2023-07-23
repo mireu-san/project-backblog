@@ -13,7 +13,7 @@ from .views import (
     SignupView,
     DeletedPostView,
     ChangePasswordView,
-    PostPagiView,
+    # PostPagiView,
 )
 
 app_name = "blog"
@@ -32,8 +32,8 @@ urlpatterns = [
     # '/blog/<int:pk>/' URL에 대해 'BlogDetailView'를 사용하여 'blog_detail.html'을 렌더링하는 URL 패턴입니다.
     # <int:pk>는 글의 고유 id 값을 나타냅니다. 조회수 기능이 구현되어 있습니다.
 
-    path('blog/write/', PostCreateView.as_view(), name='post_create'),
-    # '/blog/write/' URL에 대해 'PostCreateView'를 사용하여 'post_write.html'을 렌더링하는 URL 패턴입니다.
+    path('blog/create/', PostCreateView.as_view(), name='post_create'),
+    # '/blog/create/' URL에 대해 'PostCreateView'를 사용하여 'post_create.html'을 렌더링하는 URL 패턴입니다.
     # 새로운 글을 작성하는 기능입니다.
 
     path('blog/edit/<int:pk>/', PostEditView.as_view(), name='post_edit'),
@@ -66,5 +66,5 @@ urlpatterns = [
     # '/change_password/' URL에 대해 'ChangePasswordView'를 사용하여 'change_password.html'을 렌더링하는 URL 패턴입니다.
     # 비밀번호 변경 기능입니다.
 
-    path('', PostPagiView.as_view(), name='post_pagination')
+    # path('blog/post_pagination/<int:page>/', PostPagiView.as_view(), name='post_pagi'),
 ]

@@ -93,19 +93,24 @@
                 <p class="post-view-count">{{ post.view_count }} views</p>
             </div>
         {% endfor %}
+
         <div class="pagination">
-            {% if posts.has_previous %}
-                <a href="?page={{ posts.previous_page_number }}">Previous</a>
-            {% endif %}
-            <span class="current">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
             </span>
-            {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">Next</a>
-            {% endif %}
         </div>
-
-
     </div>
 </body>
 </html>
