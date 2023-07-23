@@ -13,6 +13,9 @@ from .forms import PostForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator
+
+
 
 """
 뷰 (views.py):
@@ -42,6 +45,8 @@ class BlogListView(ListView):
     # Post 모델의 모든 객체를 가져와서 'blog_list.html' 템플릿에 넘겨주는 ListView입니다.
 
 
+from django.db.models import F
+
 class BlogDetailView(DetailView):
     model = Post
     template_name = 'blog_detail.html'
@@ -56,13 +61,13 @@ class BlogDetailView(DetailView):
             # 해당 게시글이 존재하지 않을 경우 "존재하지 않는 게시글입니다."라는 에러 메시지를 반환합니다.
         
         # 조회 수 증가
-        self.object.view_count += 1
-        self.object.save()
-        # 게시글의 조회 수를 1 증가시키고 저장합니다.
+        Post.objects.filter(pk=self.object.pk).update(view_count=F('view_count') + 1)
+        # 게시글의 조회 수를 1 증가시키고 저장합니다. F() expressions를 사용하여 동시성 이슈를 방지합니다.
 
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
         # 컨텍스트 데이터를 포함한 HTTP 응답을 반환합니다.
+
 
 
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -198,3 +203,22 @@ class PostPagiView(ListView):
     template_name = 'blog/post_pagination.html'
     context_object_name = 'posts'
     paginate_by = 5
+    ordering = ['-created_at']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        paginator = Paginator(self.get_queryset(), self.paginate_by)
+
+        page = self.request.GET.get('page')
+        posts = paginator.get_page(page)
+
+        context.update({
+            'posts': posts,
+        })
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        # Filter the queryset based on the filters applied
+        queryset = queryset.order_by('-created_at')
+        return queryset

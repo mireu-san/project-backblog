@@ -13,6 +13,7 @@ from .views import (
     SignupView,
     DeletedPostView,
     ChangePasswordView,
+    PostPagiView,
 )
 
 app_name = "blog"
@@ -64,4 +65,6 @@ urlpatterns = [
     path('change_password/', ChangePasswordView.as_view(), name='change_password'),
     # '/change_password/' URL에 대해 'ChangePasswordView'를 사용하여 'change_password.html'을 렌더링하는 URL 패턴입니다.
     # 비밀번호 변경 기능입니다.
+
+    path('', PostPagiView.as_view(), name='post_pagination')
 ]
