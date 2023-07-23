@@ -45,6 +45,13 @@ python manage.py runserver
 
 # 실행 주소
 http://127.0.0.1:8000/
+or
+docker-compose up
+then access to localhost:80 
+
+This is due to the setup made of nginx and docker. Will be updated in Korean shortly.
+
+New ()
 ```
 ## 3. 한계점
 - 블로그에 앞서, 스레드 형식의 게시판과 유저라는 요소에만 중점을 두고 있습니다.
