@@ -23,7 +23,7 @@
 - 데이터베이스: SQLite3
 - 언어: Python(3.10.6) 
 - 마크업, 스타일시트 언어: HTML/CSS
-- 기타 라이브러리: [black formatter, graphviz, Pillow, django-extensions]
+- 기타 라이브러리: [flake8, graphviz, Pillow, django-extensions]
 (자세한 것은 requirements.txt 를 참고해주세요.)
 ## 설치 및 실행
 
@@ -98,3 +98,5 @@ URL 구성 (urls.py):
 ## Command line (development only)
 docker-compose run --rm app sh -c "name of its object"
 
+## Improvement
+(planned in security field)
