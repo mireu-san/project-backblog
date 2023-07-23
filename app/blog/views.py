@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
@@ -191,3 +191,12 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
         update_session_auth_hash(self.request, user)
         return super().form_valid(form)
         # 폼이 유효한 경우 비밀번호를 변경하고 세션의 인증 해시를 업데이트합니다.
+
+
+class PostPagiView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
+    paginate_by = 5
+
+
