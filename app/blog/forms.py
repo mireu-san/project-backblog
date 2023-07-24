@@ -20,7 +20,3 @@ class PostForm(forms.ModelForm):
         # 'title', 'content', 'picture' 필드가 폼에 표시됩니다.
 
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ('name', 'email', 'body')
