@@ -5,6 +5,8 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.http import HttpResponseServerError, HttpResponseNotFound
 from .models import Post
+from .forms import CommentForm
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LogoutView as AuthLogoutView
@@ -197,8 +199,22 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
         # 폼이 유효한 경우 비밀번호를 변경하고 세션의 인증 해시를 업데이트합니다.
 
 
-# class PostPagiView(ListView):
-#     model = Post
-#     template_name = 'blog/post_pagination.html'
-#     context_object_name = 'posts'
-#     paginate_by = 5
+# comment
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'post_detail.html'
+    
+    def post(self, request, *args, **kwargs):
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = self.get_object()
+            new_comment.save()
+        return self.get(request, *args, **kwargs)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.get_object().comments.filter(active=True)
+        context['new_comment'] = None
+        context['comment_form'] = CommentForm()
+        return context
