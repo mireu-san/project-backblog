@@ -14,6 +14,7 @@ from .views import (
     DeletedPostView,
     ChangePasswordView,
     CommentCreateView,
+    CommentDeleteView,
 )
 
 app_name = "blog"
@@ -68,6 +69,5 @@ urlpatterns = [
 
     # 댓글 기능
     path('blog/<int:pk>/comment/', CommentCreateView.as_view(), name='comment_new'),
-    # path('post/<int:pk>/comment/', CommentCreateView.as_view(), name='comment_new'),
-    # path('post/<int:pk>/comment/<int:comment_pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
+    path('blog/<int:pk>/comment/<int:comment_pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
 ]
