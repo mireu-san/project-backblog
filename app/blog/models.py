@@ -30,3 +30,18 @@ class Post(models.Model):
         """
         return reverse('blog:blog_detail', kwargs={'pk': self.pk})
         # reverse 함수는 뷰 이름과 인수를 기반으로 URL을 생성하는데 사용됩니다. 여기서는 'blog_detail' 뷰에 대한 URL을 생성하고, 포스트의 기본 키 (pk)를 인수로 전달합니다.
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    is_approved = models.BooleanField(default=False)  # Renamed 'active' to 'is_approved'
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)

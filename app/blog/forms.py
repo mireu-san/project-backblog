@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 """
 폼 (forms.py):
@@ -18,3 +18,9 @@ class PostForm(forms.ModelForm):
 
         # 'fields' 속성은 폼에서 사용될 필드들을 지정합니다.
         # 'title', 'content', 'picture' 필드가 폼에 표시됩니다.
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name', 'email', 'body')
