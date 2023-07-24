@@ -13,7 +13,8 @@ from .views import (
     SignupView,
     DeletedPostView,
     ChangePasswordView,
-    # PostDetailView,
+    CommentCreateView,
+    CommentDeleteView,
 )
 
 app_name = "blog"
@@ -66,6 +67,7 @@ urlpatterns = [
     # '/change_password/' URL에 대해 'ChangePasswordView'를 사용하여 'change_password.html'을 렌더링하는 URL 패턴입니다.
     # 비밀번호 변경 기능입니다.
 
-    # comment - URL pattern includes a keyword argument slug that is used to look up the Post instance.
-    # path('post/<slug:slug>/', PostDetailView.as_view(), name='post_detail'),
+    # 댓글 기능
+    # path('post/<int:pk>/comment/', CommentCreateView.as_view(), name='comment_new'),
+    # path('post/<int:pk>/comment/<int:comment_pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
 ]

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-9r^7o=44xgep%k_mv5%wwixea_4#m22q3o#gf5cd(a3-x7gp=r"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # note: this is experimental - ip address of the docker container
 ALLOWED_HOSTS = ['localhost', '172.18.0.2']
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "django_extensions",
     "django_dbml",
+    # "crispy_forms",
     'blog',
 ]
 
@@ -141,3 +142,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles/')
+

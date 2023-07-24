@@ -1,0 +1,10 @@
+{% extends 'base_comment.html' %} 
+
+{% block content %}
+    <h2>New Comment</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- 폼 필드를 표시합니다. -->
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}

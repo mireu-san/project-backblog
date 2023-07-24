@@ -1,28 +1,30 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView, FormView
 from django.urls import reverse_lazy
 from django.views import View
 from django.http import HttpResponseServerError, HttpResponseNotFound
-from .models import Post
-# from .forms import CommentForm
-from django.shortcuts import render, get_object_or_404
+
+from .models import Post, Comment
+from .forms import PostForm, CommentForm
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LogoutView as AuthLogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .forms import PostForm
+
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.db.models import F
 
-
-"""
-뷰 (views.py):
-- WelcomeView, HomeView, BlogListView, BlogDetailView, PostEditView, PostDeleteView, PostSearchView, SignupView, LoginView, LogoutView, PostCreateView, DeletedPostView, ChangePasswordView 뷰들이 있습니다.
-"""
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import FormMixin
+from .forms import CommentForm
 
 
 class WelcomeView(View):
@@ -199,3 +201,33 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
         # 폼이 유효한 경우 비밀번호를 변경하고 세션의 인증 해시를 업데이트합니다.
 
 
+# 댓글 기능
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'comment_new.html'
+    # 'comment_new.html'은 신규 댓글을 작성하는데 사용되는 템플릿이어야 합니다.
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('blog:blog_detail', kwargs={'pk': self.kwargs.get('pk')})
+    # 댓글 생성 후 해당 게시글 상세보기 페이지로 이동합니다.
+
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = 'comment_delete.html'
+    # 'comment_delete.html'은 댓글을 삭제하기 위한 확인 템플릿이어야 합니다.
+
+    def get_success_url(self):
+        return reverse_lazy('blog:blog_detail', kwargs={'pk': self.object.post.pk})
+    # 댓글 삭제 후 해당 게시글 상세보기 페이지로 이동합니다.
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.user
+    # 현재 로그인한 사용자가 댓글의 작성자인지 확인하는 메서드입니다.
