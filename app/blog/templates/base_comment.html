@@ -14,7 +14,7 @@
     {% if user.is_authenticated %}
         <div class="comment-form">
             <h4>Leave a Comment</h4>
-            <form method="POST">
+            <form method="POST" action="{% url 'blog:comment_new' pk=post.pk %}">
                 {% csrf_token %}
                 <label for="text">Comment:</label>
                 <textarea id="text" name="text" required></textarea>

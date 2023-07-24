@@ -22,9 +22,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.db.models import F
 
-from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import FormMixin
-from .forms import CommentForm
+# from django.views.generic.detail import SingleObjectMixin
+# from django.views.generic.edit import FormMixin
+# from .forms import CommentForm
 
 
 class WelcomeView(View):
