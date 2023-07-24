@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.http import HttpResponseServerError, HttpResponseNotFound
 from .models import Post
-from .forms import CommentForm
+# from .forms import CommentForm
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login
