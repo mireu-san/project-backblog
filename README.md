@@ -107,3 +107,6 @@ docker-compose run --rm app sh -c "name of its object"
 
 ## Improvement
 (planned in security field)
+
+## Crash note
+- 봇에 의한 침입 감지 시, 관리자에게 보고 메일을 보내는 경보 시스템 구축 시도 (django-admin-honeypot==1.1.0). 그러나 해당 패키지가 구버전인 django 3.0 과 호환됨에 따라, 이를 사용하기 위해 장고 자체 또한 다운그레이드 해야만 한다는 결론에 다다름. 해당 기능의 구성은 취소.
