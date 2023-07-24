@@ -47,7 +47,7 @@ python manage.py runserver
 http://127.0.0.1:8000/
 or
 docker-compose up
-then access to localhost:80 
+then access to `localhost` or `localhost:80`
 
 This is due to the setup made of nginx and docker. Will be updated in Korean shortly.
 
