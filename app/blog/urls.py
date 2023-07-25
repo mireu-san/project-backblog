@@ -13,6 +13,9 @@ from .views import (
     SignupView,
     DeletedPostView,
     ChangePasswordView,
+
+    PostListView, 
+    PostDetailView,
 )
 
 app_name = "blog"
@@ -66,5 +69,6 @@ urlpatterns = [
     # 비밀번호 변경 기능입니다.
 
     # 댓글 기능
+
 
 ]

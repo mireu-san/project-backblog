@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.body|linebreaks }}</p>
+<hr>
+<h2>Comments</h2>
+{% for comment in post.comment_set.all %}
+<b>{{ comment.name }}</b> said <b>{{ comment.created_on|timesince }} ago</b>
+<p>{{ comment.comment }}</p>
+{% endfor %}
+{% endblock %}

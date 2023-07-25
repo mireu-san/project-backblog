@@ -21,6 +21,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator
 from django.db.models import F
+from django.urls import reverse
+
 
 # from django.views.generic.detail import SingleObjectMixin
 # from django.views.generic.edit import FormMixin
@@ -75,7 +77,7 @@ class BlogDetailView(DetailView):
 
 class PostEditView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'body']
     template_name = 'post_edit.html'
     # Post 모델의 특정 객체를 수정하기 위한 UpdateView입니다. 'post_edit.html' 템플릿을 사용합니다.
 
@@ -202,3 +204,15 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
 
 # 댓글 기능
+class PostListView(ListView):
+    model = Post
+    template_name = 'home.html'
+    context_object_name = 'posts'
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'post_detail.html'
+    context_object_name = 'post'
+
+    def get_absolute_url(self):
+        return reverse('post-detail', args=[str(self.pk)])

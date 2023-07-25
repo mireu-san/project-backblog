@@ -5,10 +5,11 @@ from .models import Post
 - PostForm 폼 클래스가 존재합니다.
 """
 
+
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'content', 'picture']
+        fields = ['title', 'body', 'picture']
 
         # 'Post' 모델을 기반으로 폼을 생성하는 'PostForm'입니다.
 
