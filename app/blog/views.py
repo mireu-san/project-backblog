@@ -206,16 +206,21 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'comment_new.html'
-    # 'comment_new.html'은 신규 댓글을 작성하는데 사용되는 템플릿이어야 합니다.
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+
+        # 추가: 부모 댓글이 있는 경우 처리
+        parent_comment_id = self.request.POST.get('parent_comment_id')
+        if parent_comment_id:
+            form.instance.parent_comment = get_object_or_404(Comment, id=parent_comment_id)
+        
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('blog:blog_detail', kwargs={'pk': self.kwargs.get('pk')})
-    # 댓글 생성 후 해당 게시글 상세보기 페이지로 이동합니다.
+
 
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):

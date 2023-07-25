@@ -69,5 +69,5 @@ urlpatterns = [
 
     # 댓글 기능
     path('blog/<int:pk>/comment/', CommentCreateView.as_view(), name='comment_new'),
-    path('blog/<int:pk>/comment/<int:comment_pk>/delete/', CommentDeleteView.as_view(), name='comment_delete'),
+    path('comment/delete/<int:pk>/', CommentDeleteView.as_view(), name='comment_delete'),
 ]
