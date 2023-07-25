@@ -1,6 +1,5 @@
 from django import forms
-from .models import Post, Comment
-
+from .models import Post
 """
 폼 (forms.py):
 - PostForm 폼 클래스가 존재합니다.
@@ -20,7 +19,3 @@ class PostForm(forms.ModelForm):
         # 'title', 'content', 'picture' 필드가 폼에 표시됩니다.
 
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['text', 'parent_comment']  # Comment 모델의 필드를 기반으로 합니다.

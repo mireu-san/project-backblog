@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.http import HttpResponseServerError, HttpResponseNotFound
 
-from .models import Post, Comment
-from .forms import PostForm, CommentForm
+from .models import Post
+from .forms import PostForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -202,37 +202,3 @@ class ChangePasswordView(LoginRequiredMixin, SuccessMessageMixin, FormView):
 
 
 # 댓글 기능
-class CommentCreateView(LoginRequiredMixin, CreateView):
-    model = Comment
-    form_class = CommentForm
-    template_name = 'comment_new.html'
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
-
-        # 추가: 부모 댓글이 있는 경우 처리
-        parent_comment_id = self.request.POST.get('parent_comment_id')
-        if parent_comment_id:
-            form.instance.parent_comment = get_object_or_404(Comment, id=parent_comment_id)
-        
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('blog:blog_detail', kwargs={'pk': self.kwargs.get('pk')})
-
-
-
-class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Comment
-    template_name = 'comment_delete.html'
-    # 'comment_delete.html'은 댓글을 삭제하기 위한 확인 템플릿이어야 합니다.
-
-    def get_success_url(self):
-        return reverse_lazy('blog:blog_detail', kwargs={'pk': self.object.post.pk})
-    # 댓글 삭제 후 해당 게시글 상세보기 페이지로 이동합니다.
-
-    def test_func(self):
-        comment = self.get_object()
-        return self.request.user == comment.user
-    # 현재 로그인한 사용자가 댓글의 작성자인지 확인하는 메서드입니다.

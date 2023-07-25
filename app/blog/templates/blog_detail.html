@@ -73,7 +73,7 @@
         </div>
     {% endif %}
     
-    {% include 'base_comment.html' %}
+    {% comment %} {% include 'base_comment.html' %} {% endcomment %}
 
     <a href="{% url 'blog:home' %}" class="go-back-link">Go back to blog</a>
 </body>
