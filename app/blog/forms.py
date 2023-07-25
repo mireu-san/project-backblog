@@ -23,4 +23,4 @@ class PostForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['text']  # Comment 모델의 필드를 기반으로 합니다.
+        fields = ['text', 'parent_comment']  # Comment 모델의 필드를 기반으로 합니다.
